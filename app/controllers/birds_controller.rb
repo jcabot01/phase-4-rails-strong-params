@@ -8,7 +8,8 @@ class BirdsController < ApplicationController
 
   # POST /birds
   def create
-    bird = Bird.create(name: params[:name], species: params[:species])
+    # bird = Bird.create(name: params[:name], species: params[:species])
+    bird = Bird.create(bird_params)  #using "Strong Params" to only permit these attributes
     render json: bird, status: :created
   end
 
@@ -22,4 +23,10 @@ class BirdsController < ApplicationController
     end
   end
 
+
+  private  #create a private method that is abstracted and potenially re-usable
+
+  def bird_params
+    params.permit(:name, :species)
+  end
 end
